@@ -79,7 +79,19 @@
     const params = "#toolbar=0&navpanes=0&scrollbar=0";
 
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    return (isMobile ? baseMobile : baseDesktop) + params;
+    const selected = isMobile ? baseMobile : baseDesktop;
+
+    // Detectar iOS Safari (issues con PDFs en iframes: zoom y rendering)
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+    if (isIOS) {
+      // Construir URL absoluta y usar Google Viewer con zoom a ancho de página
+      const absolutePdfUrl = new URL(selected, window.location.href).href;
+      return "https://drive.google.com/viewerng/viewer?embedded=true&url=" +
+        encodeURIComponent(absolutePdfUrl) + "#zoom=page-width";
+    }
+
+    return selected + params;
     }
 
 
