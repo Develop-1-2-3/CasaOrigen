@@ -74,12 +74,12 @@
 
   <script>
     function getPdfForDevice() {
-    const baseDesktop = "brochure casa origen horizontal 10.11.pdf";
-    const baseMobile  = "brochure casa origen vertical 10.11.pdf";
+    const baseFile = "brochure casa origen horizontal 10.11.pdf"; // usar el archivo existente para todos los dispositivos
     const params = "#toolbar=0&navpanes=0&scrollbar=0";
 
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    return (isMobile ? baseMobile : baseDesktop) + params;
+    // Codificar el nombre con espacios para compatibilidad en móviles
+    const encoded = encodeURI(baseFile);
+    return encoded + params;
     }
 
 
@@ -103,7 +103,7 @@
 
     <div class="fallback">
       Si no ves el brochure, podés descargarlo
-      <a href="/pdfs/brochure-casa-origen-horizontal.pdf" target="_blank" rel="noopener">desde aquí</a>.
+      <a href="brochure%20casa%20origen%20horizontal%2010.11.pdf" target="_blank" rel="noopener">desde aquí</a>.
     </div>
   </div>
 </body>
